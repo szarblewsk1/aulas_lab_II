@@ -1,6 +1,6 @@
 package br.com.senacrs.alp.aulas;
 
-import br.com.senacrs.alp.aulas.Lista;
+import br.com.senacrs.alp.aulas.*;
 
 public class ListaImplementadaEmClasse<T> 
 	implements Lista<T> {
@@ -16,32 +16,51 @@ public class ListaImplementadaEmClasse<T>
 
 	@Override
 	public void adicionarInicio(T valor) {
-		// TODO Auto-generated method stub
-		
+		inicio.conteudo = valor;
 	}
 
 	@Override
 	public void adicionarPosicao(int posicao, T valor) {
-		// TODO Auto-generated method stub
+		Nodo<T> nodo = inicio;
 		
+		T conteudo = this.obterPosicao(posicao);
+		
+		conteudo = valor;
 	}
 
 	@Override
 	public T obterPrimeiro() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.obterPosicao(0);
 	}
 
 	@Override
 	public T obterUltimo() {
-		
-		return null;
+		return this.obterPosicao(this.obterTamanho()-1);
 	}
 
 	@Override
 	public T obterPosicao(int posicao) {
-		// TODO Auto-generated method stub
-		return null;
+		Nodo<T> nodo = null;
+		
+		nodo = this.obterNodoPosicao(posicao);
+		
+		return nodo.conteudo;
+	}
+	
+	private Nodo<T> obterNodoPosicao(int posicao) {
+		Nodo<T> nodo = this.inicio;
+		
+		int cont = -1;
+		if (posicao == cont) {
+			return nodo;
+		} else {
+			while (cont != posicao) {
+				nodo = nodo.proximo;
+				cont++;
+			}
+			
+			return nodo;
+		}
 	}
 
 	@Override
@@ -50,7 +69,7 @@ public class ListaImplementadaEmClasse<T>
 		int resultado = 0;
 		Nodo<T> nodo = null;
 		
-		nodo = inicio;
+		nodo = this.inicio;
 		while (nodo.proximo != null) {
 			nodo = nodo.proximo;
 			resultado++;
