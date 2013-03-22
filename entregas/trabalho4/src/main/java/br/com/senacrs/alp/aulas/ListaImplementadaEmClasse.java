@@ -10,22 +10,22 @@ public class ListaImplementadaEmClasse<T>
 
 	@Override
 	public void adicionarFinal(T valor) {
-		// TODO Auto-generated method stub
-		
+		/*T nodo = this.obterUltimo();
+		nodo = valor;*/
 	}
 
 	@Override
 	public void adicionarInicio(T valor) {
-		inicio.conteudo = valor;
+		T nodo = this.obterPrimeiro();
+		if (valor != null) {
+			nodo = valor;
+		}
 	}
 
 	@Override
 	public void adicionarPosicao(int posicao, T valor) {
-		Nodo<T> nodo = inicio;
-		
-		T conteudo = this.obterPosicao(posicao);
-		
-		conteudo = valor;
+		/*T nodo = this.obterPosicao(posicao);
+		nodo = valor;*/
 	}
 
 	@Override
