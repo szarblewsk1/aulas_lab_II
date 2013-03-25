@@ -2,7 +2,6 @@ package br.com.senacrs.alp.aulas;
 
 import br.com.senacrs.alp.aulas.*;
 
-// Lista implementada em classe
 public class ListaImplementadaEmClasse<T> 
 	implements Lista<T> {
 	
@@ -11,16 +10,12 @@ public class ListaImplementadaEmClasse<T>
 
 	@Override
 	public void adicionarFinal(T valor) {
-		/*T nodo = this.obterUltimo();
-		nodo = valor;*/
+		this.adicionarPosicao(this.obterTamanho(), valor);
 	}
 
 	@Override
 	public void adicionarInicio(T valor) {
-		T nodo = this.obterPrimeiro();
-		if (valor != null) {
-			nodo = valor;
-		}
+		this.adicionarPosicao(0, valor);
 	}
 
 	@Override
