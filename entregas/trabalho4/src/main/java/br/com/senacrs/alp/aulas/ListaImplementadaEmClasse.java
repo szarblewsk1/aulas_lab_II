@@ -2,6 +2,7 @@ package br.com.senacrs.alp.aulas;
 
 import br.com.senacrs.alp.aulas.*;
 
+// Lista implementada em classe
 public class ListaImplementadaEmClasse<T> 
 	implements Lista<T> {
 	
