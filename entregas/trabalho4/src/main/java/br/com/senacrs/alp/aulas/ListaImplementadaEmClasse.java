@@ -1,9 +1,7 @@
 package br.com.senacrs.alp.aulas;
 
-import br.com.senacrs.alp.aulas.*;
-
 public class ListaImplementadaEmClasse<T> 
-	implements Lista<T> {
+	implements Lista<T> { 
 	
 	private Nodo<T> inicio = new Nodo<T>();
 	
