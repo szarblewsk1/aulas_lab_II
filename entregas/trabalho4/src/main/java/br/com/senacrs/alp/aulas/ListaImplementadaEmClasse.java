@@ -18,23 +18,52 @@ public class ListaImplementadaEmClasse<T>
 
 	@Override
 	public void adicionarPosicao(int posicao, T valor) {
-		/*T nodo = this.obterPosicao(posicao);
-		nodo = valor;*/
+		Nodo<T> anterior = null;
+		Nodo<T> novo = null;
+		
+		if (valor == null) {
+			throw new IllegalArgumentException();
+		}
+		
+		if (posicao < 0) {
+			throw new IllegalArgumentException();
+		}
+		
+		if (posicao > this.obterTamanho()) {
+			throw new IllegalArgumentException();
+		}
+		
+		novo = new Nodo<T>();
+		novo.conteudo = valor;
+		anterior = this.obterNodoPosicao(posicao - 1);
+		novo.proximo = anterior.proximo;
+		anterior.proximo = novo;
 	}
 
 	@Override
 	public T obterPrimeiro() {
+		
 		return this.obterPosicao(0);
 	}
 
 	@Override
 	public T obterUltimo() {
-		return this.obterPosicao(this.obterTamanho()-1);
+		
+		return this.obterPosicao(this.obterTamanho() - 1);
 	}
 
 	@Override
 	public T obterPosicao(int posicao) {
+		
 		Nodo<T> nodo = null;
+		
+		if (posicao < 0) {
+			throw new IllegalArgumentException();
+		}
+		
+		if (posicao >= this.obterTamanho()) {
+			throw new IllegalArgumentException();
+		}
 		
 		nodo = this.obterNodoPosicao(posicao);
 		
@@ -48,7 +77,7 @@ public class ListaImplementadaEmClasse<T>
 		if (posicao == cont) {
 			return nodo;
 		} else {
-			while (cont != posicao) {
+			while (cont < posicao) {
 				nodo = nodo.proximo;
 				cont++;
 			}
@@ -74,14 +103,27 @@ public class ListaImplementadaEmClasse<T>
 
 	@Override
 	public T removerPosicao(int posicao) {
-		// TODO Auto-generated method stub
-		return null;
+		Nodo<T> anterior = null;
+		Nodo<T> nodo = null;
+		
+		if (posicao < 0) {
+			throw new IllegalArgumentException();
+		}
+		
+		if (posicao >= this.obterTamanho()) {
+			throw new IllegalArgumentException();
+		}
+		
+		anterior = obterNodoPosicao(posicao - 1);
+		nodo = anterior.proximo;
+		anterior.proximo = nodo.proximo;
+		
+		return nodo.conteudo;
 	}
 
 	@Override
 	public void esvaziar() {
-		// TODO Auto-generated method stub
-		
+		this.inicio.proximo = null;		
 	}
 
 }
