@@ -16,7 +16,7 @@ public class MinhaFila<T> implements Fila<T> {
 
 	@Override
 	public T remocao() {
-		return lista.removerPosicao(lista.obterTamanho());
+		return lista.removerPosicao(lista.obterTamanho() - 1);
 	}
 
 	@Override
