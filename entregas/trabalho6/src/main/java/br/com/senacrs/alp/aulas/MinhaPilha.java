@@ -1,22 +1,22 @@
 package br.com.senacrs.alp.aulas;
 
-public class MinhaFila<T> implements Fila<T> {
+public class MinhaPilha<T> implements Pilha<T> {
 	
 	private Lista<T> lista = ListaFactory.getInstancia().criarLista();
 
 	@Override
 	public void insercao(T valor) {
-		lista.adicionarFinal(valor);
+		lista.adicionarInicio(valor);
 	}
 
 	@Override
 	public T obter() {
-		return lista.obterPosicao(lista.obterTamanho());
+		return lista.obterPosicao(0);
 	}
 
 	@Override
 	public T remocao() {
-		return lista.removerPosicao(lista.obterTamanho());
+		return lista.removerPosicao(0);
 	}
 
 	@Override
@@ -26,7 +26,6 @@ public class MinhaFila<T> implements Fila<T> {
 		} else {
 			return true;
 		}
-		
 	}
 
 	@Override
