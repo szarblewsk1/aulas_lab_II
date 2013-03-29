@@ -11,7 +11,6 @@ public class ListaFactory {
 		
 		Lista<T> resultado = null;
 		
-		//implementar
 		resultado = new ListaImplementadaEmClasse<T>();
 		
 		return resultado;
