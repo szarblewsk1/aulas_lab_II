@@ -1,5 +1,6 @@
 package br.com.senacrs.alp.aulas;
 
+
 public class MinhaPilha<T> implements Pilha<T> {
 	
 	private Lista<T> lista = ListaFactory.getInstancia().criarLista();
