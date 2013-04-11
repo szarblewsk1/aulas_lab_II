@@ -13,7 +13,7 @@ public class ComparatorFactory {
 		
 		Comparator<Integer> resultado = null;
 		
-		resultado = new ComparatorInteiros<T>();
+		resultado = new ComparatorInteiros();
 		
 		return resultado;
 	}
