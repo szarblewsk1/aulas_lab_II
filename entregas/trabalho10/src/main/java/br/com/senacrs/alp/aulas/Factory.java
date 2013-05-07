@@ -7,15 +7,11 @@ public class Factory {
 	private Factory() {
 	}
 	
-	public EmissorMensagens criarEmissor(String arquivoEntrada) {
+	public ListaConteudoDiretorio criar() {
 	
-		if (arquivoEntrada == null) {
-			throw new IllegalArgumentException();
-		}
+		ListaConteudoDiretorio resultado = null;
 		
-		EmissorMensagens resultado = null;
-		
-		resultado = new MeuEmissorMensagens(arquivoEntrada);
+		//implementar
 		
 		return resultado;
 	}
