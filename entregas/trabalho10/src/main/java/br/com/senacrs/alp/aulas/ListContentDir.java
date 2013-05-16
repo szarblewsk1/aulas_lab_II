@@ -1,28 +1,49 @@
 package br.com.senacrs.alp.aulas;
 
 import java.io.File;
+import java.util.Arrays;
 
 public class ListContentDir implements ListaConteudoDiretorio {
 
 	@Override
 	public String[] listarConteudo(File diretorio) {
-		File fList[] = diretorio.listFiles();
+		verificaDiretorio(diretorio);
 		
-		System.out.println("Numero de arquivos no diretorio : " + fList.length);
+		File[] files = diretorio.listFiles();
+		Arrays.sort(files, new ComparatorArquivos());
 		
-		String[] retorno = new String();
+		String[] nomes = new String[files.length];
 		
-		if (fList.length > 1) {
-			for ( int i = 0; i < fList.length; i++ ) {
-				//System.out.println(fList.getName() +" " + new Date(fList.lastModified())); 
-				System.out.println(fList[i]);
-				retorno[i] += fList[i];
-			}
+		for (int i = 0; i < files.length; i++) {
+			File f = files[i];
+			String resultado = ""
+					+ (f.isDirectory() ? ListaConteudoDiretorio.IDENTIFICA_DIRETORIO : ListaConteudoDiretorio.NADA_CONSTA)
+					+ ListaConteudoDiretorio.SEPARADOR
+					+ (f.canRead() ? ListaConteudoDiretorio.PERMISSAO_LEITURA : ListaConteudoDiretorio.NADA_CONSTA)
+					+ (f.canWrite() ? ListaConteudoDiretorio.PERMISSAO_ESCRITA : ListaConteudoDiretorio.NADA_CONSTA)
+					+ (f.canExecute() ? ListaConteudoDiretorio.PERMISSAO_EXECUCAO : ListaConteudoDiretorio.NADA_CONSTA)
+					+ ListaConteudoDiretorio.SEPARADOR
+					+ f.length()
+					+ ListaConteudoDiretorio.SEPARADOR
+					+ f.getName();
 			
-			retorno[0] += fList[0];
+			nomes[i] = resultado;
 		}
 		
-		return retorno;
+		return nomes;
+	}
+	
+	public void verificaDiretorio(File diretorio) {
+		if (diretorio == null || !diretorio.exists() || !diretorio.isDirectory() || !diretorio.canRead()) {
+			throw new IllegalArgumentException();
+		}
 	}
 
 }
+
+
+
+
+
+
+
