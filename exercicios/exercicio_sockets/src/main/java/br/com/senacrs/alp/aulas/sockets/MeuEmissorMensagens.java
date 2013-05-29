@@ -1,4 +1,4 @@
-package br.com.senacrs.alp.aulas;
+package br.com.senacrs.alp.aulas.sockets;
 
 import java.awt.List;
 import java.io.BufferedReader;
