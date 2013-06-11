@@ -1,0 +1,191 @@
+package br.com.senacrs.alp.aulas;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class LeitorArquivoConfig implements ArquivoConfiguracao {
+	String arquivoEntrada;
+	
+	public LeitorArquivoConfig(String arquivoEntrada) {
+		this.arquivoEntrada = arquivoEntrada;
+		
+		File arquivo = obterArquivo(arquivoEntrada);
+	}
+	
+	private File obterArquivo(String arquivo) {
+		
+		File resultado = null;
+		
+		if (arquivo == null) {
+			throw new IllegalArgumentException();
+		}
+		
+		resultado = new File(arquivo);
+		verificarArquivo(resultado);
+		
+		return resultado;
+	}
+	
+	private void verificarArquivo(File arquivo) {
+		
+		if (arquivo == null) {
+			throw new IllegalArgumentException();
+		}
+		if (!arquivo.exists()) {
+			throw new IllegalArgumentException();
+		}
+		if (!arquivo.isFile()) {
+			throw new IllegalArgumentException();
+		}
+		if (!arquivo.canRead()) {
+			throw new IllegalArgumentException();
+		}
+	}
+
+	@Override
+	public String getRootDir() {
+		String resultado = null;
+
+		try {
+			
+			FileReader filereader = new FileReader(this.arquivoEntrada);
+			BufferedReader bfReader = new BufferedReader(filereader);
+			
+			Map<String, String> mapa = new LinkedHashMap<String, String>();
+			String linha;
+			String chave;
+			String[] valor;
+			while ((linha = bfReader.readLine()) != null) {
+				String l[] = linha.split("=");
+
+				if (l[0].startsWith("# r")) {
+					throw new IllegalArgumentException();
+				}
+				
+				if (l[0] == null) {
+					throw new IllegalArgumentException();
+				}
+				
+				if (l.length == 2) {
+					mapa.put(l[0].trim(), l[1].trim());
+					System.out.println(l[0].trim() + " -> " + l[1].trim());
+				}
+				
+			}
+
+			resultado = mapa.get("root_dir");
+							
+			/*if (!resultado.startsWith("./")) {
+				throw new IllegalArgumentException();
+			}*/
+		
+			
+		} catch (FileNotFoundException e) {
+			throw new IllegalStateException(e);
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException();
+		}
+		
+		System.out.println("Root_dir: " + resultado);
+		
+		return resultado;
+	}
+
+	@Override
+	public String getErrorDir() {
+		FileReader filereader = null;
+		BufferedReader bfReader = null;
+		String resultado = null, linha;
+		
+		try {
+			
+			filereader = new FileReader(arquivoEntrada);
+			bfReader = new BufferedReader(filereader);
+			Map<String, String> mapa = new HashMap<String, String>();
+						
+			while ((linha = bfReader.readLine()) != null) {
+				String l[] = linha.split("=");
+				if (l[0].startsWith("# r")) {
+					throw new IllegalArgumentException();
+				}
+				
+				if (l.length == 2) {
+					mapa.put(l[0].trim(), l[1].trim());
+				}
+			}
+			
+			resultado = mapa.get("error_dir");	
+
+			if (!resultado.startsWith("./")) {
+				throw new IllegalStateException();
+			}
+			
+		} catch (FileNotFoundException e) {
+			throw new IllegalStateException();
+		} catch (IOException e) {
+			throw new IllegalStateException();
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException();
+		}
+	
+		System.out.println("Error_dir: " + resultado);
+		
+		return resultado;
+	}
+
+	@Override
+	public int getPort() {
+		FileReader filereader = null;
+		BufferedReader buffreader = null;
+		int resultado = 0;
+		String linha;
+		
+		try {
+			
+			filereader = new FileReader(arquivoEntrada);
+			buffreader = new BufferedReader(filereader);
+			Map<String, String> mapa = new HashMap<String, String>();
+						
+			while ((linha = buffreader.readLine()) != null) {
+				String l[] = linha.split("=");
+				//System.out.println("L[0] " + l[0]);
+				
+				if (l[0].startsWith("# r")) {
+					throw new IllegalArgumentException();
+				}
+				
+				if (l.length == 2) {
+					String porta[] = l[1].split("#");
+					
+					if (porta.length == 2) {
+						mapa.put(l[0].trim(), porta[0].trim());
+					} else {
+						mapa.put(l[0].trim(), l[1].trim());
+					}
+				}
+			}
+
+			resultado = Integer.parseInt(mapa.get("port"));
+			
+		} catch (FileNotFoundException e) {
+			throw new IllegalStateException(e);
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		} catch (Exception e) {
+			throw new IllegalArgumentException(e);
+		}
+		
+		System.out.println("Port: " + resultado);
+		
+		return resultado;
+	}
+
+}
